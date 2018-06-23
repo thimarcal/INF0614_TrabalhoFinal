@@ -11,6 +11,13 @@ planilha$Delta_1960_1970 <- as.integer(0)
 planilha$Delta_1970_1980 <- as.integer(0)
 planilha$Delta_1950_1980 <- as.integer(0)
 
+planilha$Delta_1980_1990 <- as.integer(0)
+planilha$Delta_1990_2000 <- as.integer(0)
+planilha$Delta_2000_2016 <- as.integer(0)
+planilha$Delta_1980_2016 <- as.integer(0)
+
+planilha$Delta_1950_2016 <- as.integer(0)
+
 paises <- as.character(unique(planilha$Entity))
 
 
@@ -44,9 +51,34 @@ for (i in 1:length(paises)) {
     planilha$Delta_1950_1980[planilha$Entity==pais &planilha$Year==1980] <-
       valor_1980 - valor_1950
   }
+  
+  if (length(valor_1980) > 0 & length(valor_1990) > 0) {
+    planilha$Delta_1980_1990[planilha$Entity==pais &planilha$Year==1990] <-
+      valor_1990 - valor_1980
+  }
+  
+  if (length(valor_1990) > 0 & length(valor_2000) > 0) {
+    planilha$Delta_1990_2000[planilha$Entity==pais &planilha$Year==2000] <-
+      valor_2000 - valor_1990
+  }
+  
+  if (length(valor_2000) > 0 & length(valor_2016) > 0) {
+    planilha$Delta_2000_2016[planilha$Entity==pais &planilha$Year==2016] <-
+      valor_2016 - valor_2000
+  }
+  
+  if (length(valor_1980) > 0 & length(valor_2016) > 0) {
+    planilha$Delta_1980_2016[planilha$Entity==pais &planilha$Year==2016] <-
+      valor_2016 - valor_1980
+  }
+  
+  if (length(valor_1950) > 0 & length(valor_2016) > 0) {
+    planilha$Delta_1950_2016[planilha$Entity==pais &planilha$Year==2016] <-
+      valor_2016 - valor_1950
+  }
 }
 
-
+write.csv(planilha, file = "~/maddison-data-gdp-per-capita-in-2011us_DELTAS.csv")
 
 
 
